@@ -1,14 +1,15 @@
 package com.beetleblog.app.domains;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     private String userId;
     private String fullName;
