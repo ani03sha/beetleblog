@@ -17,6 +17,6 @@ public class User {
     private String email;
     private String password;
     private String bio;
-    private String profilePic; // URL of the pic stored in the database
+    private String profilePic;
     private Set<Article> articles;
 }
