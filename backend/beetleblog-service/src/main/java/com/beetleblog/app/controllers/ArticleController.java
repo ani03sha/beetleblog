@@ -1,7 +1,6 @@
 package com.beetleblog.app.controllers;
 
 import com.beetleblog.app.domains.Article;
-import com.beetleblog.app.repositories.ArticleRepository;
 import com.beetleblog.app.services.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/v1/articles")
 public class ArticleController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ArticleController.class);
 
     private final ArticleService articleService;
 
