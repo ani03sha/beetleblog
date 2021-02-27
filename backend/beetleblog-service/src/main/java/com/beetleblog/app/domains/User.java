@@ -1,22 +1,18 @@
 package com.beetleblog.app.domains;
 
-import lombok.*;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
 
-import java.util.Set;
-
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class User {
-    private String userId;
+
+    @Id
+    private String id;
+
     private String fullName;
     private String username;
     private String email;
     private String password;
     private String bio;
     private String profilePic;
-    private Set<Article> articles;
 }
