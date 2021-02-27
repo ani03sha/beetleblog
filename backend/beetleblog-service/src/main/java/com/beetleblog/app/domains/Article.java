@@ -1,21 +1,20 @@
 package com.beetleblog.app.domains;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
 
-import java.util.Date;
-
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
 public class Article {
-    private String articleId;
+
+    @Id
+    private String id;
+
     private String title;
     private String summary;
     private String content;
-    private Date createdDate;
-    private Date updatedDate;
-    private User author;
+    private String createdDate;
+    private String updatedDate;
+    private String username;
 }
