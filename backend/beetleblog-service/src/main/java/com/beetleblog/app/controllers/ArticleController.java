@@ -35,7 +35,7 @@ public class ArticleController {
         if (persistedArticle != null) {
             return new ResponseEntity<>(persistedArticle, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
