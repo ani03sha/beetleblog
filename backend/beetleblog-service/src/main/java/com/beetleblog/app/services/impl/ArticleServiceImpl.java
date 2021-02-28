@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.UncategorizedMongoDbException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -28,6 +30,18 @@ public class ArticleServiceImpl implements ArticleService {
             return persistedArticle;
         } catch (UncategorizedMongoDbException e) {
             LOGGER.error("Article could not be saved in the database", e);
+            throw new CustomMongoException(e.getMessage());
+        }
+    }
+
+    public List<Article> getArticles() {
+        LOGGER.info("Fetching all articles");
+        try {
+            List<Article> articles = articleRepository.findAll();
+            LOGGER.info("Articles retrieved successfully");
+            return articles;
+        } catch (UncategorizedMongoDbException e) {
+            LOGGER.error("Not able to fetch articles from database", e);
             throw new CustomMongoException(e.getMessage());
         }
     }

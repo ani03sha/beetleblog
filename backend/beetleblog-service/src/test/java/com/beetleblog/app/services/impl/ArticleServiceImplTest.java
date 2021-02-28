@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -49,5 +50,10 @@ class ArticleServiceImplTest {
         assertThat(persistedArticle.getCreatedDate()).isEqualTo(article.getCreatedDate());
         assertThat(persistedArticle.getUpdatedDate()).isEqualTo(article.getUpdatedDate());
         assertThat(persistedArticle.getUsername()).isEqualTo(article.getUsername());
+    }
+
+    @Test
+    void testGetArticles() {
+        List<Article> articleList = articleService.getArticles();
     }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -56,5 +57,12 @@ class ArticleControllerTest {
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
         assertThat(Objects.requireNonNull(responseEntity.getBody()).getTitle()).isEqualTo(article.getTitle());
+    }
+
+    @Test
+    void testGetArticles() {
+        ResponseEntity<List<Article>> responseEntity = articleController.getArticles();
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
     }
 }
