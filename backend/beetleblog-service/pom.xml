@@ -16,6 +16,7 @@
     <properties>
         <java.version>15</java.version>
         <junit.platform.runner>1.7.1</junit.platform.runner>
+        <springdoc.openapi.ui>1.5.4</springdoc.openapi.ui>
     </properties>
 
     <dependencies>
@@ -79,7 +80,12 @@
             <version>${junit.platform.runner}</version>
             <scope>test</scope>
         </dependency>
-
+        <!-- Swagger / Open API -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc.openapi.ui}</version>
+        </dependency>
     </dependencies>
 
     <build>
