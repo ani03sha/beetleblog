@@ -12,10 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/articles")
@@ -48,6 +47,28 @@ public class ArticleController {
         Article persistedArticle = articleService.createArticle(article);
         if (persistedArticle != null) {
             return new ResponseEntity<>(persistedArticle, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(
+            value = "/getArticles",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Operation(summary = "Fetches all articles", description = "This endpoint fetches all articles from the database")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "201", description = "Articles fetched", content = @Content(schema = @Schema(implementation = Article.class))),
+                    @ApiResponse(responseCode = "400", description = "No article found"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error")
+            }
+    )
+    public ResponseEntity<List<Article>> getArticles() {
+        LOGGER.info("Fetching all articles");
+        List<Article> articleList = articleService.getArticles();
+        if (articleList != null) {
+            return new ResponseEntity<>(articleList, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
