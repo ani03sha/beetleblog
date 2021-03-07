@@ -22,6 +22,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -64,5 +65,24 @@ class ArticleControllerTest {
         ResponseEntity<List<Article>> responseEntity = articleController.getArticles();
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
+    }
+
+    @Test
+    void testUpdateArticle() {
+        Article article = new Article(
+                "101",
+                "Test Article",
+                "Test Title",
+                "Test Content",
+                Instant.now().toString(),
+                Instant.now().toString(),
+                "Test User");
+
+        when(articleService.updateArticle(any(Article.class), anyString())).thenReturn(article);
+
+        ResponseEntity<Article> responseEntity = articleController.updateArticle(article, article.getId());
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
+        assertThat(Objects.requireNonNull(responseEntity.getBody()).getTitle()).isEqualTo(article.getTitle());
     }
 }

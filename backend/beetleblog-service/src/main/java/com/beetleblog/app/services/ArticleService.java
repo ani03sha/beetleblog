@@ -9,4 +9,6 @@ public interface ArticleService {
     Article createArticle(Article article);
 
     List<Article> getArticles();
+
+    Article updateArticle(Article article, String id);
 }
