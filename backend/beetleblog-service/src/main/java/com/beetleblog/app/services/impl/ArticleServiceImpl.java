@@ -27,6 +27,8 @@ public class ArticleServiceImpl implements ArticleService {
     public Article createArticle(Article article) {
         LOGGER.info("Saving the article with title {} in the database", article.getTitle());
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+            article.setCreatedDate(formatter.format(LocalDateTime.now()));
             Article persistedArticle = articleRepository.save(article);
             LOGGER.info("Article with title: {} saved successfully", persistedArticle.getTitle());
             return persistedArticle;
