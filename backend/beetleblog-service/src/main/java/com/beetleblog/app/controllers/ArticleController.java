@@ -73,4 +73,28 @@ public class ArticleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping(
+            value = "/updateArticle/{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Operation(summary = "Update an article", description = "This endpoint updates an existing article in the database")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "201", description = "Article updated", content = @Content(schema = @Schema(implementation = Article.class))),
+                    @ApiResponse(responseCode = "400", description = "Invalid input"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error"),
+                    @ApiResponse(responseCode = "409", description = "Object already exists")
+            }
+    )
+    public ResponseEntity<Article> updateArticle(@RequestBody Article article, @PathVariable("id") String id) {
+        LOGGER.info("Updating article with title {} in the database", article.getTitle());
+        Article persistedArticle = articleService.updateArticle(article, id);
+        if (persistedArticle != null) {
+            return new ResponseEntity<>(persistedArticle, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
