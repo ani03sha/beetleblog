@@ -51,7 +51,6 @@ public class ArticleServiceImpl implements ArticleService {
     public Article updateArticle(Article article, String id) {
         LOGGER.info("Updating the article with title {} in the database", article.getTitle());
         try {
-            LOGGER.info("abc {}",articleRepository.findById(id));
             if (articleRepository.findById(id).isEmpty()) {
                 return null;
             }
