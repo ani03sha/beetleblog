@@ -11,4 +11,6 @@ public interface ArticleService {
     List<Article> getArticles();
 
     Article updateArticle(Article article, String id);
+
+    Article deleteArticle(String id);
 }

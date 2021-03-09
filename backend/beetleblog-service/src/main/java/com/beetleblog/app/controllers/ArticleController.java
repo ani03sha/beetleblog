@@ -97,4 +97,27 @@ public class ArticleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping(
+            value = "/deleteArticle/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Operation(summary = "Delete an article", description = "This endpoint deletes an existing article in the database")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "201", description = "Article deleted", content = @Content(schema = @Schema(implementation = Article.class))),
+                    @ApiResponse(responseCode = "400", description = "Invalid input"),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error"),
+                    @ApiResponse(responseCode = "409", description = "Object already exists")
+            }
+    )
+    public ResponseEntity<Article> deleteArticle(@PathVariable("id") String id) {
+        LOGGER.info("Deleting article with id: {} in the database", id);
+        Article persistedArticle = articleService.deleteArticle(id);
+        if (persistedArticle != null) {
+            return new ResponseEntity<>(persistedArticle, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

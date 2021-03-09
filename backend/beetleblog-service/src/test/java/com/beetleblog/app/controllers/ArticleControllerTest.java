@@ -85,4 +85,22 @@ class ArticleControllerTest {
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
         assertThat(Objects.requireNonNull(responseEntity.getBody()).getTitle()).isEqualTo(article.getTitle());
     }
+
+    @Test
+    void testDeleteArticle() {
+        Article article = new Article(
+                "101",
+                "Test Article",
+                "Test Title",
+                "Test Content",
+                Instant.now().toString(),
+                Instant.now().toString(),
+                "Test User");
+
+        when(articleService.deleteArticle(anyString())).thenReturn(article);
+
+        ResponseEntity<Article> responseEntity = articleController.deleteArticle(article.getId());
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    }
 }

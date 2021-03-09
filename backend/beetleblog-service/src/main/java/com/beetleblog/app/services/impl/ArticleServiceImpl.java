@@ -72,4 +72,19 @@ public class ArticleServiceImpl implements ArticleService {
             throw new CustomMongoException(e.getMessage());
         }
     }
+
+    public Article deleteArticle(String id) {
+        LOGGER.info("Deleting the article with id: {} in the database", id);
+        try {
+            if (articleRepository.findById(id).isEmpty()) {
+                return null;
+            }
+            Article persistedArticle = articleRepository.findById(id).get();
+            articleRepository.delete(persistedArticle);
+            return persistedArticle;
+        } catch (UncategorizedMongoDbException e) {
+            LOGGER.error("Article could not be deleted from the database", e);
+            throw new CustomMongoException(e.getMessage());
+        }
+    }
 }

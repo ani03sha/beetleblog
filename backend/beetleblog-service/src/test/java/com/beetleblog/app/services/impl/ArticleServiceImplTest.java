@@ -86,4 +86,21 @@ class ArticleServiceImplTest {
         assertThat(persistedArticle.getContent()).isEqualTo(updatedPersistedArticle.getContent());
         assertThat(persistedArticle.getUsername()).isEqualTo(updatedPersistedArticle.getUsername());
     }
+
+    @Test
+    void testDeleteArticle() {
+        when(articleRepository.save(any(Article.class))).thenReturn(article);
+
+        Article persistedArticle = articleService.createArticle(article);
+
+        when(articleRepository.findById(anyString())).thenReturn(Optional.of(persistedArticle));
+
+        Article deletedPersistedArticle = articleService.deleteArticle(persistedArticle.getId());
+
+        assertThat(persistedArticle.getId()).isEqualTo(deletedPersistedArticle.getId());
+        assertThat(persistedArticle.getTitle()).isEqualTo(deletedPersistedArticle.getTitle());
+        assertThat(persistedArticle.getSummary()).isEqualTo(deletedPersistedArticle.getSummary());
+        assertThat(persistedArticle.getContent()).isEqualTo(deletedPersistedArticle.getContent());
+        assertThat(persistedArticle.getUsername()).isEqualTo(deletedPersistedArticle.getUsername());
+    }
 }
